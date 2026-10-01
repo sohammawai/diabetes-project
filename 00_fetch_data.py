@@ -14,10 +14,11 @@ df = pd.concat([ds.data.features, ds.data.targets], axis=1)
 # canonical column order so everyone's data hash matches
 feats = sorted(c for c in df.columns if c != TARGET)
 df = df[feats + [TARGET]]
+print("features:", feats)
 
 assert df.shape == (253680, 22), df.shape
 assert df.isna().sum().sum() == 0
 
 RAW.parent.mkdir(parents=True, exist_ok=True)
-df.to_csv(RAW, index=False)
+df.to_csv(RAW, index=False , mode='w')
 print("wrote", RAW, df.shape)
